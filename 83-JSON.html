@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title> JSON- FORMULARIO - Facundo Aguilar</title>
+  <style>
+    
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-image: url(architecture-2256489_1920.jpg);
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 20px;
+      backdrop-filter: blur(15px);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    input[type="text"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      outline: none;
+    }
+
+    input[type="button"] {
+      width: calc(50% - 5px);
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      background-color: rgba(108, 175, 219, 0.8);
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 5px;
+      backdrop-filter: blur(15px);
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    input[type="button"]:hover {
+      background-color: #2a78b9;
+    }
+
+    input[type="button"]:last-child {
+      margin-top: 0;
+    }
+
+    textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 4px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      outline: none;
+    }
+
+	#log {
+		width: 65px;
+		height: 45px;
+		position: relative;
+		left: -50px;
+		top:-290px;
+	}
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <center><h2>FORMULARIO</h2></center>
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" value=""><br>
+  <label for="apellidos">Apellidos:</label>
+  <input type="text" id="apellidos" value=""><br>
+  <label for="edad">Edad:</label>
+  <input type="text" id="edad" value=""><br>
+
+  <input type="button" value="Guardar y Mostrar" onclick="leer();">
+  <input type="button" value="Borrar Pantalla" onclick="borrarPantalla();"><br>
+  <input type="button" value="Mostrar Ficha" onclick="mostrar();">
+  <input type="button" value="Exportar" onclick="exportar();">
+  <input type="button" value="Importar" onclick="importar();">
+
+  <div id="contenedor"></div>
+  <br>
+  Datos para exportar/importar:
+  <br><br>
+  <textarea id="datos" rows="5" cols="75"></textarea>
+</div>
+
+<div class="logo">
+	<img src="json.png" id="log">
+</div>
+
+<script>
+  let vectorPersona = {};
+
+  function leer() {
+    vectorPersona['nombre'] = document.getElementById('nombre').value;
+    vectorPersona['apellidos'] = document.getElementById('apellidos').value;
+    vectorPersona['edad'] = document.getElementById('edad').value;
+    let texto = '';
+
+    texto += '<br><strong>Nombre:</strong> ' + vectorPersona['nombre'];
+    texto += '<br><strong>Apellidos:</strong> ' + vectorPersona['apellidos'];
+    texto += '<br><strong>Edad:</strong> ' + vectorPersona['edad'];
+
+    document.getElementById('contenedor').innerHTML = texto;
+  }
+
+  function borrarPantalla() {
+    document.getElementById('nombre').value = '';
+    document.getElementById('apellidos').value = '';
+    document.getElementById('edad').value = '';
+    document.getElementById('contenedor').innerHTML = '';
+  }
+
+  function mostrar() {
+    let texto = '';
+    texto += '<br><strong>Nombre:</strong> ' + vectorPersona['nombre'];
+    texto += '<br><strong>Apellidos:</strong> ' + vectorPersona['apellidos'];
+    texto += '<br><strong>Edad:</strong> ' + vectorPersona['edad'];
+    document.getElementById('contenedor').innerHTML = texto;
+  }
+
+  function exportar() {
+    let texto = JSON.stringify(vectorPersona);
+    document.getElementById('datos').innerHTML = texto;
+  }
+
+  function importar() {
+    let texto = document.getElementById('datos').innerHTML;
+    vectorPersona = JSON.parse(texto);
+    document.getElementById('datos').innerHTML = '';
+  }
+
+
+</script>
+
+</body>
+</html>
